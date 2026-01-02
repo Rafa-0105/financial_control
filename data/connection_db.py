@@ -1,11 +1,17 @@
 import pymysql.cursors
+import os
+from dotenv import load_dotenv
 
-connection = pymysql.connect(host='localhost',
-                             user='rafael',
-                             password='F@milia231120',
-                             database='finacias',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+load_dotenv()
+
+connection = pymysql.connect(
+    host=os.environ['DB_HOST'],
+    user=os.environ['DB_USER'],
+    password=os.environ['DB_PASSWORD'],
+    database=os.environ['DB_NAME'],
+    charset=os.environ['DB_CHARSET'],
+    cursorclass=pymysql.cursors.DictCursor
+)
 
 with connection:
     with connection.cursor() as cursor:
