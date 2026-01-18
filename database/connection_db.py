@@ -195,6 +195,21 @@ def init_db():
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
+            
+            # Create History Table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS finacias.despesa_history (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    despesa_id INT NOT NULL,
+                    field VARCHAR(50) NOT NULL,
+                    old_value DECIMAL(10, 2),
+                    new_value DECIMAL(10, 2),
+                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    user_id INT,
+                    INDEX (despesa_id),
+                    INDEX (timestamp)
+                )
+            """)
             connection.commit()
     finally:
         connection.close()
